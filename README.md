@@ -50,6 +50,14 @@ var imagesTree = imageVars( 'webpub/images', {
 }
 ```
 
+The full list of variables for the one image file:
+
+- `$filename_url` — value for css `background-image` property.
+- `$filename_data_url` — the same as `$filename_url`, but includes data URI of image (variable exists only for the images are set in `options.inline`).
+- `$filename_width` — the width of the image in pixels.
+- `$filename_height` — the height of the image in pixels.
+- `$filename_padding` — the `padding-bottom` css property value for the resizable backgrounds (see example above).
+
 ## Documentation
 
 ### `imageVars( inputTree, options )`
