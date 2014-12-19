@@ -16,7 +16,7 @@ module.exports = ImageUtil;
 ImageUtil.prototype = Object.create( writer.prototype );
 ImageUtil.prototype.constructor = ImageUtil;
 ImageUtil.prototype.input = '*.*';
-ImageUtil.prototype.stripPath = null;
+ImageUtil.prototype.image_root = null;
 ImageUtil.prototype.inline = [];
 
 function ImageUtil( tree, options ){
@@ -40,7 +40,7 @@ function ImageUtil( tree, options ){
 
 
 ImageUtil.prototype._scss = function( dir ){
-    var image_path = path.normalize( this.tree.replace( this.stripPath, '' ) ),
+    var image_path = path.normalize( this.tree.replace( this.image_root, '' ) ),
         inline_images = helpers.multiGlob( this.inline, { cwd: dir });
 
     image_path += image_path.slice( -1 ) === '/' ? '' : '/';
