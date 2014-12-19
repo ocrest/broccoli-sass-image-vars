@@ -24,7 +24,7 @@ var imagesTree = imageVars( 'webpub/images', {
     // Specify the output Sass file:
     output: 'scss_compiled/_images.scss',
 
-    // Cut out from the images path 'webpub' substring
+    // This prefix will be removed from the each image URL
     image_root: 'webpub',
 });
 ```
@@ -88,7 +88,7 @@ Default value: `[]`
 
 `[options.image_root]` *{String|null}*
 
-A substring which must be cut out from the images location URL.
+A prefix which must be cut out from the image URLs.
 
 Default value: `null`
 
