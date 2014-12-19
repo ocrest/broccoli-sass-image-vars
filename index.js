@@ -34,13 +34,14 @@ function ImageUtil( tree, options ){
         if( options.hasOwnProperty( key ) )
             this[ key ] = options[ key ];
 
+    this.tree = this.image_root ? this.tree.replace( new RegExp( '^' + this.image_root ), '' ) : this.tree;
     this.input = Array.isArray( this.input ) ? this.input : [ this.input ];
     this.inline = Array.isArray( this.inline ) ? this.inline : [ this.inline ];
 }
 
 
 ImageUtil.prototype._scss = function( dir ){
-    var image_path = path.normalize( this.tree.replace( this.image_root, '' ) ),
+    var image_path = path.normalize( this.tree ),
         inline_images = helpers.multiGlob( this.inline, { cwd: dir });
 
     image_path += image_path.slice( -1 ) === '/' ? '' : '/';
