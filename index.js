@@ -1,7 +1,7 @@
 /**
  * broccoli-sass-image-vars
  * © 2014 Daniil Filippov <filippovdaniil@gmail.com>
- * MIT License <https://github.com/filippovdaniil/broccoli-sass-image-vars/blob/master/LICENSE.txt>
+ * MIT License <https://github.com/filippovdaniil/broccoli-sass-image-vars/blob/master/LICENSE>
  */
 
 var fs = require( 'fs' );
