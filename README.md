@@ -10,9 +10,9 @@ npm install --save-dev broccoli-sass-image-vars
 
 ## Usage examples
 
-Plugin takes a simple string (path to image files) or a broccoli tree as its first argument.
+Plugin takes a simple string (path to the directory with images) or a broccoli tree as its first argument.
 
-In the first case, you don't need to specify the `url_prefix` option — the passed `inputTree` first argument will be the prefix of image URLs (you can also specify the `image_root` option to modify this prefix):
+In the first case, you don't even need to specify the `url_prefix` option — the passed `inputTree` string will be the prefix of image URLs (you can also specify the `image_root` option to modify this prefix):
 
 `Brocfile.js`
 ```js
@@ -33,7 +33,7 @@ var imagesTree = imageVars( 'webpub/images', {
 });
 ```
 
-In the case, when you pass to plugin a broccoli tree from another plugin ([broccoli-imagemin](https://github.com/xulai/broccoli-imagemin), for example), you must specify the prefix with
+In the second case, when you pass to the plugin a broccoli tree, created by another plugin ([broccoli-imagemin](https://github.com/xulai/broccoli-imagemin), for example), you must specify the prefix with
 the option `url_prefix`:
 
 `Brocfile.js`
@@ -85,7 +85,7 @@ In your Sass file you can import compiled variables as follows:
     // preloader.png variables:
     width: $preloader_width;
     height: $preloader_height;
-    content: $preloader_data_url
+    content: $preloader_data_url // url('/images/preloader.png')
 }
 
 .some-resizable-bg{
