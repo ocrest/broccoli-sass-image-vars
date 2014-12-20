@@ -17,6 +17,7 @@ ImageUtil.prototype = Object.create( writer.prototype );
 ImageUtil.prototype.constructor = ImageUtil;
 ImageUtil.prototype.input = '*.*';
 ImageUtil.prototype.image_root = null;
+ImageUtil.prototype.image_path = null;
 ImageUtil.prototype.inline = [];
 
 function ImageUtil( tree, options ){
@@ -28,31 +29,38 @@ function ImageUtil( tree, options ){
     this.tree = tree;
     options = options || {};
     if( ! options.output )
-        throw new Error( 'Missed required parameter "output"' );
+        throw new Error( 'Missed required option "output"' );
 
     for( var key in options )
         if( options.hasOwnProperty( key ) )
             this[ key ] = options[ key ];
 
-    this.tree = this.image_root ? this.tree.replace( new RegExp( '^' + this.image_root ), '' ) : this.tree;
+    if( typeof this.tree === 'object' && ! this.url_prefix )
+        throw new Error( 'Missed required "url_prefix" option' );
+
+    if( this.url_prefix )
+        this.image_path = this.url_prefix;
+    else if( typeof this.tree === 'string' )
+        this.image_path = this.image_root ? this.tree.replace( new RegExp( '^' + this.image_root ), '' ) : this.tree;
+    this.image_path += this.image_path.slice( -1 ) === '/' ? '' : '/';
+
     this.input = Array.isArray( this.input ) ? this.input : [ this.input ];
     this.inline = Array.isArray( this.inline ) ? this.inline : [ this.inline ];
 }
 
 
 ImageUtil.prototype._scss = function( dir ){
-    var image_path = path.normalize( this.tree ),
+    var self = this;
         inline_images = helpers.multiGlob( this.inline, { cwd: dir });
 
-    image_path += image_path.slice( -1 ) === '/' ? '' : '/';
     return helpers.multiGlob( this.input, { cwd: dir }).reduce(function( output, file_name ){
         var file_path = path.resolve( dir, file_name ),
             var_name = path.basename( file_path, path.extname( file_path ) ),
             size = imageSize( file_path );
 
         output += '\n';
-        output += '$' + var_name + '_path: "' + image_path + file_name + '";\n';
-        output += '$' + var_name + '_url: url(\'' + image_path + file_name + '\');\n';
+        output += '$' + var_name + '_path: "' + self.image_path + file_name + '";\n';
+        output += '$' + var_name + '_url: url(\'' + self.image_path + file_name + '\');\n';
         if( inline_images.indexOf( file_name ) + 1 ){
             var uri = new dataURI( file_path );
             output += '$' + var_name + '_data_url: url(\'' + uri.content +'\');\n';

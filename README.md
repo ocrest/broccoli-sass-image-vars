@@ -8,14 +8,17 @@ This is a simple [broccoli](https://github.com/broccolijs/broccoli) plugin for g
 npm install --save-dev broccoli-sass-image-vars
 ```
 
-## Usage example
+## Usage examples
+
+Plugin takes a simple string (path to image files) or a broccoli tree as its first argument.
+In the first case, you don't need to specify the `url_prefix` option — the passed `inputTree` will be the prefix of image URLs (you can also specify the `image_root` option to modify the prefix):
 
 `Brocfile.js`
 ```js
 var imageVars = require( 'broccoli-sass-image-vars' );
 
 var imagesTree = imageVars( 'webpub/images', {
-    // Select all png and svg files under webpub/images directory
+    // Select only png and svg files under webpub/images directory
     input: [ '**/*.png', '**/*.svg' ],
 
     // Include data URI for all svg images and preloader.png:
@@ -28,6 +31,33 @@ var imagesTree = imageVars( 'webpub/images', {
     image_root: 'webpub',
 });
 ```
+
+In the case, when you pass to plugin a broccoli tree from another plugin ([broccoli-imagemin](https://github.com/xulai/broccoli-imagemin), for example), you must specify the prefix with
+the option `url_prefix`:
+
+`Brocfile.js`
+```js
+var imageMin = require( 'broccoli-imagemin' );
+var imageVars = require( 'broccoli-sass-image-vars' );
+
+var optimizedImagesTree = imageMin( 'webpub/images', {
+    interlaced: true,
+    optimizationLevel: 3,
+    progressive: true,
+    lossyPNG: false
+});
+
+// By default, the "input" option is set to '*.*':
+var imagesTree = imageVars( optimizedImagesTree, {
+    // Specify the output Sass file:
+    output: 'scss_compiled/_images.scss',
+
+    // Specify the URL prefix for images:
+    url_prefix: '/images',
+});
+```
+
+In your Sass file you can import compiled variables as follows:
 
 `app.scss`
 ```scss
@@ -72,7 +102,7 @@ Location of the output file with Sass variables.
 
 `[options.input]` *{Array|String}*
 
-An array of globs or a simple glob string for image files to include (must exists at least one for the each search pattern). 
+An array of globs or a simple glob string for image files to include (must exists at least one file for the each search pattern).
 
 Default value: `'*.*'`
 
@@ -80,15 +110,24 @@ Default value: `'*.*'`
 
 `[options.inline]` *{Array|String}*
 
-An array of globs or a simple glob string for images, for which a variables with data URI must be created (must exists at least one for the each search pattern).
+An array of globs or a simple glob string for images, for which a variables with data URI must be created (must exists at least one file for the each search pattern).
 
 Default value: `[]`
 
 ---
 
+`[options.url_prefix]` *{String|null}*
+
+A prefix for the image URLs in Sass variables. Required when the `inputTree` is a broccoli tree, returned by another plugin.
+
+
+Default value: `null`
+
+---
+
 `[options.image_root]` *{String|null}*
 
-A prefix which must be cut out from the image URLs.
+A prefix which must be cut out from the image URLs. Used only when the `inputTree` is string.
 
 Default value: `null`
 
