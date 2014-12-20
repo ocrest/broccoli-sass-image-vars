@@ -11,7 +11,8 @@ npm install --save-dev broccoli-sass-image-vars
 ## Usage examples
 
 Plugin takes a simple string (path to image files) or a broccoli tree as its first argument.
-In the first case, you don't need to specify the `url_prefix` option — the passed `inputTree` will be the prefix of image URLs (you can also specify the `image_root` option to modify the prefix):
+
+In the first case, you don't need to specify the `url_prefix` option — the passed `inputTree` first argument will be the prefix of image URLs (you can also specify the `image_root` option to modify this prefix):
 
 `Brocfile.js`
 ```js
@@ -57,14 +58,16 @@ var imagesTree = imageVars( optimizedImagesTree, {
 });
 ```
 
-You can also set any of plugin's options before creating trees:
+You can also setup any of plugin's options before creating trees:
 
 `Brocfile.js`
 ```js
 var imageVars = require( 'broccoli-sass-image-vars' );
 
-// This default prefix will be removed from the each image URL
+// This prefix will be removed from the each image URL:
 imageVars.image_root = 'webpub';
+// Turn on the query string cache buster for the each image URL:
+imageVars.cache_buster = true;
 
 var imagesTree = imageVars( 'webpub/images', {
     output: 'scss_compiled/_images.scss',
@@ -144,6 +147,14 @@ Default value: `null`
 A prefix which must be cut out from the image URLs. Used only when the `inputTree` is string.
 
 Default value: `null`
+
+---
+
+`[options.cache_buster]` *{Boolean}*
+
+If is set to `true`, the cache busting via URL query string will be used (will append to the each image URL a string of form `?%ctime%`, where `%ctime%` is a timestamp of the file last modification date).
+
+Default value: `false`
 
 ## License
 

@@ -19,6 +19,7 @@ ImageUtil.prototype.input = '*.*';
 ImageUtil.prototype.image_root = null;
 ImageUtil.prototype.image_path = null;
 ImageUtil.prototype.inline = [];
+ImageUtil.prototype.cache_buster = false;
 
 function ImageUtil( tree, options ){
     if( ! ( this instanceof ImageUtil ) ) 
@@ -59,11 +60,12 @@ ImageUtil.prototype._scss = function( dir ){
     return helpers.multiGlob( this.input, { cwd: dir }).reduce(function( output, file_name ){
         var file_path = path.resolve( dir, file_name ),
             var_name = path.basename( file_path, path.extname( file_path ) ),
-            size = imageSize( file_path );
+            size = imageSize( file_path ),
+            cache_buster = self.cache_buster ? '?' + Math.floor( fs.statSync( file_path ).ctime.getTime() / 1000 ) : '';
 
         output += '\n';
-        output += '$' + var_name + '_path: "' + self.image_path + file_name + '";\n';
-        output += '$' + var_name + '_url: url(\'' + self.image_path + file_name + '\');\n';
+        output += '$' + var_name + '_path: "' + self.image_path + file_name + cache_buster + '";\n';
+        output += '$' + var_name + '_url: url(\'' + self.image_path + file_name + cache_buster + '\');\n';
         if( inline_images.indexOf( file_name ) + 1 ){
             var uri = new dataURI( file_path );
             output += '$' + var_name + '_data_url: url(\'' + uri.content +'\');\n';
