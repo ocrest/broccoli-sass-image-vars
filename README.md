@@ -57,6 +57,20 @@ var imagesTree = imageVars( optimizedImagesTree, {
 });
 ```
 
+You can also set any of plugin's options before creating trees:
+
+`Brocfile.js`
+```js
+var imageVars = require( 'broccoli-sass-image-vars' );
+
+// This default prefix will be removed from the each image URL
+imageVars.image_root = 'webpub';
+
+var imagesTree = imageVars( 'webpub/images', {
+    output: 'scss_compiled/_images.scss',
+});
+```
+
 In your Sass file you can import compiled variables as follows:
 
 `app.scss`

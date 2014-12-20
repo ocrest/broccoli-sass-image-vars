@@ -31,6 +31,9 @@ function ImageUtil( tree, options ){
     if( ! options.output )
         throw new Error( 'Missed required option "output"' );
 
+    for( var key in ImageUtil )
+        if( ImageUtil.hasOwnProperty( key ) )
+            this[ key ] = ImageUtil[ key ];
     for( var key in options )
         if( options.hasOwnProperty( key ) )
             this[ key ] = options[ key ];
