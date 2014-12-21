@@ -60,8 +60,9 @@ ImageUtil.prototype._scss = function( dir ){
     return helpers.multiGlob( this.input, { cwd: dir }).reduce(function( output, file_name ){
         var file_path = path.resolve( dir, file_name ),
             var_name = path.basename( file_path, path.extname( file_path ) ),
-            size = imageSize( file_path ),
             cache_buster = self.cache_buster ? '?' + Math.floor( fs.statSync( file_path ).ctime.getTime() / 1000 ) : '';
+        // image-size library may through a TypeError for SVG images without width and height
+        try{ var size = imageSize( file_path ); }catch( err ){}
 
         output += '\n';
         output += '$' + var_name + '_path: "' + self.image_path + file_name + cache_buster + '";\n';
@@ -70,10 +71,11 @@ ImageUtil.prototype._scss = function( dir ){
             var uri = new dataURI( file_path );
             output += '$' + var_name + '_data_url: url(\'' + uri.content +'\');\n';
         }
-        output += '$' + var_name + '_width: ' + size.width + 'px;\n';
-        output += '$' + var_name + '_height: ' + size.height + 'px;\n';
-        output += '$' + var_name + '_padding: ' + ( size.height / size.width * 100 ) + '%;\n';
-
+        if( size ){
+            output += '$' + var_name + '_width: ' + size.width + 'px;\n';
+            output += '$' + var_name + '_height: ' + size.height + 'px;\n';
+            output += '$' + var_name + '_padding: ' + ( size.height / size.width * 100 ) + '%;\n';
+        }
         return output;
     }, '' );
 };
