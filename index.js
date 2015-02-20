@@ -22,7 +22,7 @@ ImageUtil.prototype.inline = [];
 ImageUtil.prototype.cache_buster = false;
 
 function ImageUtil( tree, options ){
-    if( ! ( this instanceof ImageUtil ) ) 
+    if( ! ( this instanceof ImageUtil ) )
         return new ImageUtil( tree, options )
 
     writer.apply( this, arguments );
@@ -61,6 +61,10 @@ ImageUtil.prototype._scss = function( dir ){
         var file_path = path.resolve( dir, file_name ),
             var_name = path.basename( file_path, path.extname( file_path ) ),
             cache_buster = self.cache_buster ? '?' + Math.floor( fs.statSync( file_path ).ctime.getTime() / 1000 ) : '';
+
+        // rename $01_image --> $_01_image
+        var_name = isNaN( var_name[ 0 ] ) ? var_name : '_' + var_name;
+
         // image-size library may through a TypeError for SVG images without width and height
         try{ var size = imageSize( file_path ); }catch( err ){}
 
