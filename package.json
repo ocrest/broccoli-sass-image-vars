@@ -1,7 +1,7 @@
 {
   "name": "broccoli-sass-image-vars",
   "description": "Sass variables for images",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "author": "Daniil Filippov <filippovdaniil@gmail.com>",
   "main": "index.js",
   "license": "MIT",
