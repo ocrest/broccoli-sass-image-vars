@@ -119,7 +119,7 @@ Location of the output file with Sass variables.
 
 `[options.input]` *{Array|String}*
 
-An array of globs or a simple glob string for image files to include (must exists at least one file for the each search pattern).
+An array of globs or a simple glob string for image files to include.
 
 Default value: `'*.*'`
 
@@ -127,7 +127,7 @@ Default value: `'*.*'`
 
 `[options.inline]` *{Array|String}*
 
-An array of globs or a simple glob string for images, for which a variables with data URI must be created (must exists at least one file for the each search pattern).
+An array of globs or a simple glob string for images, for which a variables with data URI must be created.
 
 Default value: `[]`
 
