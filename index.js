@@ -1,15 +1,15 @@
 /**
  * broccoli-sass-image-vars
- * © 2014 Daniil Filippov <filippovdaniil@gmail.com>
+ * © 2015 Daniil Filippov <filippovdaniil@gmail.com>
  * MIT License <https://github.com/filippovdaniil/broccoli-sass-image-vars/blob/master/LICENSE>
  */
 
 var fs = require( 'fs' );
 var path = require( 'path' );
+var glob = require( 'glob-all' );
 var mkdirp = require( 'mkdirp' );
 var dataURI = require( 'datauri' );
 var imageSize = require( 'image-size' );
-var helpers = require( 'broccoli-kitchen-sink-helpers' );
 var writer = require( 'broccoli-caching-writer' );
 
 module.exports = ImageUtil;
@@ -54,11 +54,13 @@ function ImageUtil( tree, options ){
 
 
 ImageUtil.prototype._scss = function( dir ){
-    var self = this;
-        inline_images = helpers.multiGlob( this.inline, { cwd: dir });
+    this.input = this.input.map(function( e ){ return dir + e });
+    this.inline = this.inline.map(function( e ){ return dir + e });
+    var self = this,
+        inline_images = glob.sync( self.inline );
 
-    return helpers.multiGlob( this.input, { cwd: dir }).reduce(function( output, file_name ){
-        var file_path = path.resolve( dir, file_name ),
+    return glob.sync( this.input ).reduce(function( output, file_path ){
+        var file_name = path.basename( file_path ),
             var_name = path.basename( file_path, path.extname( file_path ) ),
             cache_buster = self.cache_buster ? '?' + Math.floor( fs.statSync( file_path ).ctime.getTime() / 1000 ) : '';
 
@@ -71,7 +73,7 @@ ImageUtil.prototype._scss = function( dir ){
         output += '\n';
         output += '$' + var_name + '_path: "' + self.image_path + file_name + cache_buster + '";\n';
         output += '$' + var_name + '_url: url(\'' + self.image_path + file_name + cache_buster + '\');\n';
-        if( inline_images.indexOf( file_name ) + 1 ){
+        if( inline_images.indexOf( file_path ) + 1 ){
             var uri = new dataURI( file_path );
             output += '$' + var_name + '_data_url: url(\'' + uri.content +'\');\n';
         }
