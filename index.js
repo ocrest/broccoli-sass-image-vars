@@ -68,6 +68,7 @@ ImageUtil.prototype._scss = function( dir ){
 
         // rename $01_image --> $_01_image
         var_name = isNaN( var_name[ 0 ] ) ? var_name : '_' + var_name;
+        var_name = var_name.replace( /([!"#$%&'( )*+,.\/:;<=>?@\[\]^\{\}|~])/g, '\\$1' ); // Escape ASCII punctuation
 
         // image-size library may through a TypeError for SVG images without width and height
         try{ var size = imageSize( file_path ); }catch( err ){}
