@@ -62,6 +62,8 @@ ImageUtil.prototype._scss = function( dir ){
         inline_images = glob.sync( self.inline );
 
     return glob.sync( this.input ).reduce(function( output, file_path ){
+        if( fs.lstatSync( file_path ).isDirectory() )
+            return output; // it's definitely not an image :)
         var file_name = path.relative( dir, file_path );
         var relative_var_name = ( path.dirname( file_name ) + '_' )
                                     .replace( /^\._/, '' )
