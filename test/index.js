@@ -14,10 +14,8 @@ describe( 'broccoli-sass-image-vars', function(){
 
     function compare( expected, result ){
         result = fs.readFileSync( result.directory + path.sep + imageVars.output ).toString();
-        result = result.substring( result.indexOf( '\n' ) + 1 );
-        expected = fs.readFileSync( expected ).toString();
-        expected = expected.substring( expected.indexOf( '\n' ) + 1 );
-        return result.should.be.equal( expected );
+        expected = fs.readFileSync( expected ).toString().split( '\n' ).slice( 1 ).join( '\n' );
+        return result.split( '\n' ).slice( 1 ).join( '\n' ).should.be.equal( expected );
     }
 
     afterEach(function(){
