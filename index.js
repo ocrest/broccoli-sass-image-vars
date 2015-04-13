@@ -59,9 +59,12 @@ ImageUtil.prototype._scss = function( dir ){
     this.input = this.input.map(function( glob ){ return dir + glob });
     this.inline = this.inline.map(function( glob ){ return dir + glob });
     var self = this,
-        inline_images = glob.sync( self.inline );
+        input_images = glob.sync( this.input ),
+        inline_images = glob.sync( this.inline );
 
-    return glob.sync( this.input ).reduce(function( output, file_path ){
+    return input_images.concat( inline_images.filter(function( file_path ){
+        return input_images.indexOf( file_path ) < 0;
+    }) ).reduce(function( output, file_path ){
         if( fs.lstatSync( file_path ).isDirectory() )
             return output; // it's definitely not an image :)
         var file_name = path.relative( dir, file_path );

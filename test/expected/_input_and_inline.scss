@@ -1,0 +1,14 @@
+// Result for the fixtures/glob directory using "*.png" and "**/*.gif" patterns for the "input" and "inline" options accordingly
+
+$_1_path: 'test/fixtures/glob/1.png';
+$_1_url: url('test/fixtures/glob/1.png');
+$_1_width: 20px;
+$_1_height: 20px;
+$_1_padding: 100%;
+
+$aaa_bbb\.ccc_test\ 1_path: 'test/fixtures/glob/aaa/bbb.ccc/test 1.gif';
+$aaa_bbb\.ccc_test\ 1_url: url('test/fixtures/glob/aaa/bbb.ccc/test 1.gif');
+$aaa_bbb\.ccc_test\ 1_data_url: url('data:image/gif;base64,R0lGODdhFAAoAIAAAAD/AAD/ACwAAAAAFAAoAAACGoSPqcvtD6OctNqLs968+w+G4kiW5omm6ooVADs=');
+$aaa_bbb\.ccc_test\ 1_width: 20px;
+$aaa_bbb\.ccc_test\ 1_height: 40px;
+$aaa_bbb\.ccc_test\ 1_padding: 200%;

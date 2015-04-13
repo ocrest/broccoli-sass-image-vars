@@ -49,4 +49,12 @@ describe( 'broccoli-sass-image-vars', function(){
         builder = new broccoli.Builder( tree );
         return builder.build().then( compare.bind( undefined, expectedDir + '_inline_string.scss' ) );
     });
+    it( 'should create the correct scss file with both "input" and "inline" options', function(){
+        var tree = new imageVars( fixturesDir + 'glob', {
+            input: '*.png',
+            inline: '**/*.gif'
+        });
+        builder = new broccoli.Builder( tree );
+        return builder.build().then( compare.bind( undefined, expectedDir + '_input_and_inline.scss' ) );
+    });
 });
