@@ -1,0 +1,26 @@
+// Result for the fixtures/single directory using "*.svg" pattern for the "inline" option
+
+$_1_path: 'test/fixtures/single/1.png';
+$_1_url: url('test/fixtures/single/1.png');
+$_1_width: 20px;
+$_1_height: 20px;
+$_1_padding: 100%;
+
+$simple_path: 'test/fixtures/single/simple.svg';
+$simple_url: url('test/fixtures/single/simple.svg');
+$simple_data_url: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCI+PGc+PHBhdGggY29sb3I9IiMwMDAiIGZpbGw9IiMwMGYiIG92ZXJmbG93PSJ2aXNpYmxlIiBlbmFibGUtYmFja2dyb3VuZD0iYWNjdW11bGF0ZSIgZD0iTTAgMGg0MHY0MEgweiIvPjwvZz48L3N2Zz4=');
+$simple_width: 40px;
+$simple_height: 40px;
+$simple_padding: 100%;
+
+$test\ 1_path: 'test/fixtures/single/test 1.gif';
+$test\ 1_url: url('test/fixtures/single/test 1.gif');
+$test\ 1_width: 20px;
+$test\ 1_height: 40px;
+$test\ 1_padding: 200%;
+
+$test\.test_path: 'test/fixtures/single/test.test.jpg';
+$test\.test_url: url('test/fixtures/single/test.test.jpg');
+$test\.test_width: 40px;
+$test\.test_height: 20px;
+$test\.test_padding: 50%;
