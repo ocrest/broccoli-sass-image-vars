@@ -73,7 +73,7 @@ ImageUtil.prototype._scss = function( dir ){
         try{ var size = imageSize( file_path ); }catch( err ){}
 
         output += '\n';
-        output += '$' + var_name + '_path: "' + self.image_path + file_name + cache_buster + '";\n';
+        output += '$' + var_name + '_path: \'' + self.image_path + file_name + cache_buster + '\';\n';
         output += '$' + var_name + '_url: url(\'' + self.image_path + file_name + cache_buster + '\');\n';
         if( inline_images.indexOf( file_path ) + 1 ){
             var uri = new dataURI( file_path );
