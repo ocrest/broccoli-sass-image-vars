@@ -54,8 +54,9 @@ function ImageUtil( tree, options ){
 
 
 ImageUtil.prototype._scss = function( dir ){
-    this.input = this.input.map(function( e ){ return dir + e });
-    this.inline = this.inline.map(function( e ){ return dir + e });
+    dir += dir.slice( -1 ) === path.sep ? '' : path.sep;
+    this.input = this.input.map(function( glob ){ return dir + glob });
+    this.inline = this.inline.map(function( glob ){ return dir + glob });
     var self = this,
         inline_images = glob.sync( self.inline );
 
