@@ -35,4 +35,11 @@ describe( 'broccoli-sass-image-vars', function(){
         builder = new broccoli.Builder( tree );
         return builder.build().then( compare.bind( undefined, expectedDir + '_input_string.scss' ) );
     });
+    it( 'should create the correct scss file with the array "input" option', function(){
+        var tree = new imageVars( fixturesDir + 'glob', {
+            input: [ '*.*', 'aaa/*.*' ]
+        });
+        builder = new broccoli.Builder( tree );
+        return builder.build().then( compare.bind( undefined, expectedDir + '_input_array.scss' ) );
+    });
 });

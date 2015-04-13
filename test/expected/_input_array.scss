@@ -1,0 +1,13 @@
+// Result for a fixtures/glob directory using [ "*.*", "aaa/*.*" ] patterns for the "input" option
+
+$_1_path: 'test/fixtures/glob/1.png';
+$_1_url: url('test/fixtures/glob/1.png');
+$_1_width: 20px;
+$_1_height: 20px;
+$_1_padding: 100%;
+
+$aaa_simple_path: 'test/fixtures/glob/aaa/simple.svg';
+$aaa_simple_url: url('test/fixtures/glob/aaa/simple.svg');
+$aaa_simple_width: 40px;
+$aaa_simple_height: 40px;
+$aaa_simple_padding: 100%;
