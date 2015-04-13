@@ -62,10 +62,12 @@ ImageUtil.prototype._scss = function( dir ){
         inline_images = glob.sync( self.inline );
 
     return glob.sync( this.input ).reduce(function( output, file_path ){
-        var file_name = path.relative( dir, file_path ),
-            relative_var_name = ( path.dirname( file_name ) + '_' ).replace( /^\._/, '' ).replace( /\//g, '_' ),
-            var_name = relative_var_name + path.basename( file_name, path.extname( file_name ) ),
-            cache_buster = self.cache_buster ? '?' + Math.floor( fs.statSync( file_path ).ctime.getTime() / 1000 ) : '';
+        var file_name = path.relative( dir, file_path );
+        var relative_var_name = ( path.dirname( file_name ) + '_' )
+                                    .replace( /^\._/, '' )
+                                    .replace( new RegExp( path.sep, 'g' ), '_' );
+        var var_name = relative_var_name + path.basename( file_name, path.extname( file_name ) );
+        var cache_buster = self.cache_buster ? '?' + Math.floor( fs.statSync( file_path ).ctime.getTime() / 1000 ) : '';
 
         // rename $01_image --> $_01_image
         var_name = isNaN( var_name[ 0 ] ) ? var_name : '_' + var_name;
