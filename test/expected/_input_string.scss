@@ -1,0 +1,19 @@
+// Result for a fixtures/glob directory using "**/*.*" pattern for the "input" option
+
+$_1_path: 'test/fixtures/glob/1.png';
+$_1_url: url('test/fixtures/glob/1.png');
+$_1_width: 20px;
+$_1_height: 20px;
+$_1_padding: 100%;
+
+$aaa_bbb\.ccc_test\ 1_path: 'test/fixtures/glob/aaa/bbb.ccc/test 1.gif';
+$aaa_bbb\.ccc_test\ 1_url: url('test/fixtures/glob/aaa/bbb.ccc/test 1.gif');
+$aaa_bbb\.ccc_test\ 1_width: 20px;
+$aaa_bbb\.ccc_test\ 1_height: 40px;
+$aaa_bbb\.ccc_test\ 1_padding: 200%;
+
+$aaa_simple_path: 'test/fixtures/glob/aaa/simple.svg';
+$aaa_simple_url: url('test/fixtures/glob/aaa/simple.svg');
+$aaa_simple_width: 40px;
+$aaa_simple_height: 40px;
+$aaa_simple_padding: 100%;
