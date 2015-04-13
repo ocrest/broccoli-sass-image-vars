@@ -29,8 +29,6 @@ function ImageUtil( tree, options ){
 
     this.tree = tree;
     options = options || {};
-    if( ! options.output )
-        throw new Error( 'Missed required option "output"' );
 
     for( var key in ImageUtil )
         if( ImageUtil.hasOwnProperty( key ) )
@@ -38,6 +36,9 @@ function ImageUtil( tree, options ){
     for( var key in options )
         if( options.hasOwnProperty( key ) )
             this[ key ] = options[ key ];
+
+    if( ! this.output )
+        throw new Error( 'Missed required option "output"' );
 
     if( typeof this.tree === 'object' && ! this.url_prefix )
         throw new Error( 'Missed required "url_prefix" option' );
