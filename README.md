@@ -1,5 +1,8 @@
 # broccoli-sass-image-vars
 
+[![Build Status](https://travis-ci.org/filippovdaniil/broccoli-sass-image-vars.svg?branch=master)](https://travis-ci.org/filippovdaniil/broccoli-sass-image-vars)
+[![Dependencies Status](https://img.shields.io/david/filippovdaniil/broccoli-sass-image-vars.svg)]()
+
 This is a simple [broccoli](https://github.com/broccolijs/broccoli) plugin for generating Sass variables for your images.
 
 ## Installation
