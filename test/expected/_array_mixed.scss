@@ -1,0 +1,13 @@
+// Result for the fixtures/glob directory using mixed input array with a Broccoli tree, which moves aaa/*.* -> . and "/prefix.cool" for the "url_prefix"
+
+$_1_path: '/prefix.cool/1.png';
+$_1_url: url('/prefix.cool/1.png');
+$_1_width: 20px;
+$_1_height: 20px;
+$_1_padding: 100%;
+
+$simple_path: '/prefix.cool/simple.svg';
+$simple_url: url('/prefix.cool/simple.svg');
+$simple_width: 40px;
+$simple_height: 40px;
+$simple_padding: 100%;

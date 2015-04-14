@@ -122,5 +122,14 @@ describe( 'broccoli-sass-image-vars', function(){
         it( 'should create the correct scss file for an array of directories', function(){
             return check( [ 'glob', 'glob/aaa/', 'glob/aaa/bbb.ccc' ], '_array.scss' );
         });
+        it( 'should create the correct scss file for the mixed inputTrees array and specified "url_prefix"', function(){
+            var tree = pick( fixturesDir + 'glob', {
+                srcDir: 'aaa',
+                destDir: '.'
+            });
+            return check( [ 'glob', tree ], '_array_mixed.scss', {
+                url_prefix: '/prefix.cool'
+            });
+        });
     });
 });
