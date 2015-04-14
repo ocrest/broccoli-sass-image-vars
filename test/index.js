@@ -42,6 +42,13 @@ describe( 'broccoli-sass-image-vars', function(){
         builder = new broccoli.Builder( tree );
         return builder.build().then( compare.bind( undefined, expectedDir + '_input_array.scss' ) );
     });
+    it( 'should not throw any errors if the "input" option doesn\'t find any images', function(){
+        var tree = new imageVars( fixturesDir + 'single', {
+            input: 'unexisting/*.*'
+        });
+        builder = new broccoli.Builder( tree );
+        return builder.build().then( compare.bind( undefined, expectedDir + '_input_unexisting.scss' ) );
+    });
     it( 'should create the correct scss file with the string "inline" option', function(){
         var tree = new imageVars( fixturesDir + 'single', {
             inline: '*.svg'
