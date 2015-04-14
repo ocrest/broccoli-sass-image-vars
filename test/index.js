@@ -118,4 +118,9 @@ describe( 'broccoli-sass-image-vars', function(){
             return expect(function(){ check( tree, '_broccoli_tree_and_url_prefix.scss' ) }).to.throw( /url_prefix/ );
         });
     });
+    describe( 'several trees', function(){
+        it( 'should create the correct scss file for an array of directories', function(){
+            return check( [ 'glob', 'glob/aaa/', 'glob/aaa/bbb.ccc' ], '_array.scss' );
+        });
+    });
 });

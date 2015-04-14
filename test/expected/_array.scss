@@ -1,0 +1,19 @@
+// Result for the fixtures/glob directory using an array of input trees [ '(...)/glob', '(...)/glob/aaa/', '(...)/globa/aaa/bbb.ccc' ]
+
+$_1_path: 'test/fixtures/glob/1.png';
+$_1_url: url('test/fixtures/glob/1.png');
+$_1_width: 20px;
+$_1_height: 20px;
+$_1_padding: 100%;
+
+$simple_path: 'test/fixtures/glob/aaa/simple.svg';
+$simple_url: url('test/fixtures/glob/aaa/simple.svg');
+$simple_width: 40px;
+$simple_height: 40px;
+$simple_padding: 100%;
+
+$test\ 1_path: 'test/fixtures/glob/aaa/bbb.ccc/test 1.gif';
+$test\ 1_url: url('test/fixtures/glob/aaa/bbb.ccc/test 1.gif');
+$test\ 1_width: 20px;
+$test\ 1_height: 40px;
+$test\ 1_padding: 200%;
