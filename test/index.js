@@ -38,6 +38,11 @@ describe( 'broccoli-sass-image-vars', function(){
     it( 'should create the correct scss file for a single directory with images', function(){
         return check( 'single', '_single.scss' );
     });
+    it( 'should throw an error if the "output" option isn\'t specified', function(){
+        return expect(function(){
+            check( 'glob', '_input_string.scss', { output: undefined });
+        }).to.throw( /output/ );
+    });
     it( 'should create the correct scss file with the string "input" option', function(){
         return check( 'glob', '_input_string.scss', {
             input: '**/*.*'
