@@ -35,85 +35,87 @@ describe( 'broccoli-sass-image-vars', function(){
             return builder.cleanup();
     });
 
-    it( 'should create the correct scss file for a single directory with images', function(){
-        return check( 'single', '_single.scss' );
-    });
-    it( 'should throw an error if the "output" option isn\'t specified', function(){
-        return expect(function(){
-            check( 'glob', '_input_string.scss', { output: undefined });
-        }).to.throw( /output/ );
-    });
-    it( 'should create the correct scss file with the string "input" option', function(){
-        return check( 'glob', '_input_string.scss', {
-            input: '**/*.*'
+    describe( 'single tree', function(){
+        it( 'should create the correct scss file for a single directory with images', function(){
+            return check( 'single', '_single.scss' );
         });
-    });
-    it( 'should create the correct scss file with the array "input" option', function(){
-        return check( 'glob', '_input_array.scss', {
-            input: [ '*.*', 'aaa/*.*' ]
+        it( 'should throw an error if the "output" option isn\'t specified', function(){
+            return expect(function(){
+                check( 'glob', '_input_string.scss', { output: undefined });
+            }).to.throw( /output/ );
         });
-    });
-    it( 'should not throw any errors if the "input" option doesn\'t find any images', function(){
-        return check( 'single', '_input_unexisting.scss', {
-            input: 'unexisting/*.*'
+        it( 'should create the correct scss file with the string "input" option', function(){
+            return check( 'glob', '_input_string.scss', {
+                input: '**/*.*'
+            });
         });
-    });
-    it( 'should create the correct scss file with the string "inline" option', function(){
-        return check( 'single', '_inline_string.scss', {
-            inline: '*.svg'
+        it( 'should create the correct scss file with the array "input" option', function(){
+            return check( 'glob', '_input_array.scss', {
+                input: [ '*.*', 'aaa/*.*' ]
+            });
         });
-    });
-    it( 'should create the correct scss file with the array "inline" option', function(){
-        return check( 'glob', '_inline_array.scss', {
-            inline: [ '**/*.png', '**/*.gif' ]
+        it( 'should not throw any errors if the "input" option doesn\'t find any images', function(){
+            return check( 'single', '_input_unexisting.scss', {
+                input: 'unexisting/*.*'
+            });
         });
-    });
-    it( 'should not throw any errors if the "inline" option doesn\'t find any images', function(){
-        return check( 'single', '_inline_unexisting.scss', {
-            inline: 'unexisting/*.*'
+        it( 'should create the correct scss file with the string "inline" option', function(){
+            return check( 'single', '_inline_string.scss', {
+                inline: '*.svg'
+            });
         });
-    });
-    it( 'should create the correct scss file with both "input" and "inline" options', function(){
-        return check( 'glob', '_input_and_inline.scss', {
-            input: '*.png',
-            inline: '**/*.gif'
+        it( 'should create the correct scss file with the array "inline" option', function(){
+            return check( 'glob', '_inline_array.scss', {
+                inline: [ '**/*.png', '**/*.gif' ]
+            });
         });
-    });
-    it( 'should create the correct scss file with the "url_prefix" option', function(){
-        return check( 'single', '_url_prefix.scss', {
-            url_prefix: 'prefix/url'
+        it( 'should not throw any errors if the "inline" option doesn\'t find any images', function(){
+            return check( 'single', '_inline_unexisting.scss', {
+                inline: 'unexisting/*.*'
+            });
         });
-    });
-    it( 'should create the correct scss file with the "image_root" option', function(){
-        return check( 'single', '_image_root.scss', {
-            image_root: 'test/fixtures'
+        it( 'should create the correct scss file with both "input" and "inline" options', function(){
+            return check( 'glob', '_input_and_inline.scss', {
+                input: '*.png',
+                inline: '**/*.gif'
+            });
         });
-    });
-    it( 'should create the correct scss file with the "cache_buster" option' );
-    it( 'should create the correct scss file with a valid Broccoli tree and the "url_prefix" option', function(){
-        var tree = pick( fixturesDir + 'single', {
-            srcDir: '.',
-            destDir: '.'
+        it( 'should create the correct scss file with the "url_prefix" option', function(){
+            return check( 'single', '_url_prefix.scss', {
+                url_prefix: 'prefix/url'
+            });
         });
-        return check( tree, '_broccoli_tree_and_url_prefix.scss', {
-            url_prefix: '/prefix'
+        it( 'should create the correct scss file with the "image_root" option', function(){
+            return check( 'single', '_image_root.scss', {
+                image_root: 'test/fixtures'
+            });
         });
-    });
-    it( 'should create the correct scss file with a Broccoli tree (which moves images) and the "url_prefix" option', function(){
-        var tree = pick( fixturesDir + 'single', {
-            srcDir: '.',
-            destDir: 'nice_place'
+        it( 'should create the correct scss file with the "cache_buster" option' );
+        it( 'should create the correct scss file with a valid Broccoli tree and the "url_prefix" option', function(){
+            var tree = pick( fixturesDir + 'single', {
+                srcDir: '.',
+                destDir: '.'
+            });
+            return check( tree, '_broccoli_tree_and_url_prefix.scss', {
+                url_prefix: '/prefix'
+            });
         });
-        return check( tree, '_broccoli_moving_tree_and_url_prefix.scss', {
-            input: 'nice_place/*.*',
-            url_prefix: '/prefix'
+        it( 'should create the correct scss file with a Broccoli tree (which moves images) and the "url_prefix" option', function(){
+            var tree = pick( fixturesDir + 'single', {
+                srcDir: '.',
+                destDir: 'nice_place'
+            });
+            return check( tree, '_broccoli_moving_tree_and_url_prefix.scss', {
+                input: 'nice_place/*.*',
+                url_prefix: '/prefix'
+            });
         });
-    });
-    it( 'should throw an error if the Broccoli tree is used and the "url_prefix" option isn\'t specified', function(){
-        var tree = pick( fixturesDir + 'single', {
-            srcDir: '.',
-            destDir: '.'
+        it( 'should throw an error if the Broccoli tree is used and the "url_prefix" option isn\'t specified', function(){
+            var tree = pick( fixturesDir + 'single', {
+                srcDir: '.',
+                destDir: '.'
+            });
+            return expect(function(){ check( tree, '_broccoli_tree_and_url_prefix.scss' ) }).to.throw( /url_prefix/ );
         });
-        return expect(function(){ check( tree, '_broccoli_tree_and_url_prefix.scss' ) }).to.throw( /url_prefix/ );
     });
 });
