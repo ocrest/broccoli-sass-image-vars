@@ -18,64 +18,58 @@ describe( 'broccoli-sass-image-vars', function(){
         return result.split( '\n' ).slice( 1 ).join( '\n' ).should.be.equal( expected );
     }
 
+    function check( trees, expectedScss, options ){
+        if( typeof trees === 'string' )
+            trees = fixturesDir + trees;
+        else if( Array.isArray( trees ) )
+            trees = trees.map(function( tree ){ return typeof tree === 'string' ? fixturesDir + tree : tree });
+        var tree = new imageVars( trees, options );
+        builder = new broccoli.Builder( tree );
+        return builder.build().then( compare.bind( undefined, expectedDir + expectedScss ) );
+    }
+
     afterEach(function(){
         if( builder )
             return builder.cleanup();
     });
 
     it( 'should create the correct scss file for a single directory with images', function(){
-        var tree = new imageVars( fixturesDir + 'single' );
-        builder = new broccoli.Builder( tree );
-        return builder.build().then( compare.bind( undefined, expectedDir + '_single.scss' ) );
+        return check( 'single', '_single.scss' );
     });
     it( 'should create the correct scss file with the string "input" option', function(){
-        var tree = new imageVars( fixturesDir + 'glob', {
+        return check( 'glob', '_input_string.scss', {
             input: '**/*.*'
         });
-        builder = new broccoli.Builder( tree );
-        return builder.build().then( compare.bind( undefined, expectedDir + '_input_string.scss' ) );
     });
     it( 'should create the correct scss file with the array "input" option', function(){
-        var tree = new imageVars( fixturesDir + 'glob', {
+        return check( 'glob', '_input_array.scss', {
             input: [ '*.*', 'aaa/*.*' ]
         });
-        builder = new broccoli.Builder( tree );
-        return builder.build().then( compare.bind( undefined, expectedDir + '_input_array.scss' ) );
     });
     it( 'should not throw any errors if the "input" option doesn\'t find any images', function(){
-        var tree = new imageVars( fixturesDir + 'single', {
+        return check( 'single', '_input_unexisting.scss', {
             input: 'unexisting/*.*'
         });
-        builder = new broccoli.Builder( tree );
-        return builder.build().then( compare.bind( undefined, expectedDir + '_input_unexisting.scss' ) );
     });
     it( 'should create the correct scss file with the string "inline" option', function(){
-        var tree = new imageVars( fixturesDir + 'single', {
+        return check( 'single', '_inline_string.scss', {
             inline: '*.svg'
         });
-        builder = new broccoli.Builder( tree );
-        return builder.build().then( compare.bind( undefined, expectedDir + '_inline_string.scss' ) );
     });
     it( 'should create the correct scss file with the array "inline" option', function(){
-        var tree = new imageVars( fixturesDir + 'glob', {
+        return check( 'glob', '_inline_array.scss', {
             inline: [ '**/*.png', '**/*.gif' ]
         });
-        builder = new broccoli.Builder( tree );
-        return builder.build().then( compare.bind( undefined, expectedDir + '_inline_array.scss' ) );
     });
     it( 'should not throw any errors if the "inline" option doesn\'t find any images', function(){
-        var tree = new imageVars( fixturesDir + 'single', {
+        return check( 'single', '_inline_unexisting.scss', {
             inline: 'unexisting/*.*'
         });
-        builder = new broccoli.Builder( tree );
-        return builder.build().then( compare.bind( undefined, expectedDir + '_inline_unexisting.scss' ) );
     });
     it( 'should create the correct scss file with both "input" and "inline" options', function(){
-        var tree = new imageVars( fixturesDir + 'glob', {
+        return check( 'glob', '_input_and_inline.scss', {
             input: '*.png',
             inline: '**/*.gif'
         });
-        builder = new broccoli.Builder( tree );
-        return builder.build().then( compare.bind( undefined, expectedDir + '_input_and_inline.scss' ) );
     });
 });
