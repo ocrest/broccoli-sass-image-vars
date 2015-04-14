@@ -131,5 +131,12 @@ describe( 'broccoli-sass-image-vars', function(){
                 url_prefix: '/prefix.cool'
             });
         });
+        it( 'should throw an error for the mixed inputTrees array and not specified "url_prefix" option', function(){
+            var tree = pick( fixturesDir + 'single', {
+                srcDir: '.',
+                destDir: '.'
+            });
+            return expect(function(){ check( [ 'glob', tree ], '_array_mixed.scss' ) }).to.throw( /url_prefix/ );
+        });
     });
 });
