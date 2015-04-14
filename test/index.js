@@ -84,6 +84,11 @@ describe( 'broccoli-sass-image-vars', function(){
             url_prefix: 'prefix/url'
         });
     });
+    it( 'should create the correct scss file with the "image_root" option', function(){
+        return check( 'single', '_image_root.scss', {
+            image_root: 'test/fixtures'
+        });
+    });
     it( 'should create the correct scss file with a valid Broccoli tree and the "url_prefix" option', function(){
         var tree = pick( fixturesDir + 'single', {
             srcDir: '.',

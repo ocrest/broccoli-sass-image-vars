@@ -1,0 +1,25 @@
+// Result for the fixtures/single directory using "test/fixtures" string for the "image_root" option
+
+$_1_path: '/single/1.png';
+$_1_url: url('/single/1.png');
+$_1_width: 20px;
+$_1_height: 20px;
+$_1_padding: 100%;
+
+$simple_path: '/single/simple.svg';
+$simple_url: url('/single/simple.svg');
+$simple_width: 40px;
+$simple_height: 40px;
+$simple_padding: 100%;
+
+$test\ 1_path: '/single/test 1.gif';
+$test\ 1_url: url('/single/test 1.gif');
+$test\ 1_width: 20px;
+$test\ 1_height: 40px;
+$test\ 1_padding: 200%;
+
+$test\.test_path: '/single/test.test.jpg';
+$test\.test_url: url('/single/test.test.jpg');
+$test\.test_width: 40px;
+$test\.test_height: 20px;
+$test\.test_padding: 50%;
