@@ -21,6 +21,7 @@
   },
   "devDependencies": {
     "broccoli": "^0.15.3",
+    "broccoli-static-compiler": "^0.2.1",
     "chai": "^2.2.0",
     "mocha": "^2.2.4"
   }

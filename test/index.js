@@ -1,6 +1,7 @@
 var fs = require( 'fs' );
 var path = require( 'path' );
 var broccoli = require( 'broccoli' );
+var pick = require( 'broccoli-static-compiler' );
 var chai = require( 'chai' );
 var imageVars = require( '..' );
 
@@ -70,6 +71,15 @@ describe( 'broccoli-sass-image-vars', function(){
         return check( 'glob', '_input_and_inline.scss', {
             input: '*.png',
             inline: '**/*.gif'
+        });
+    });
+    it( 'should create the correct scss file with a valid Broccoli tree and the "url_prefix" option', function(){
+        var tree = pick( fixturesDir + 'single', {
+            srcDir: '.',
+            destDir: '.'
+        });
+        return check( tree, '_broccoli_tree_and_url_prefix.scss', {
+            url_prefix: '/prefix'
         });
     });
 });
