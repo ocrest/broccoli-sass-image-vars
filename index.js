@@ -21,13 +21,13 @@ ImageUtil.prototype.image_path = null;
 ImageUtil.prototype.inline = [];
 ImageUtil.prototype.cache_buster = false;
 
-function ImageUtil( tree, options ){
+function ImageUtil( trees, options ){
     if( ! ( this instanceof ImageUtil ) )
-        return new ImageUtil( tree, options )
+        return new ImageUtil( trees, options )
 
     writer.apply( this, arguments );
 
-    this.tree = tree;
+    this.trees = trees;
     options = options || {};
 
     for( var key in ImageUtil )
@@ -40,27 +40,28 @@ function ImageUtil( tree, options ){
     if( ! this.output )
         throw new Error( 'Missed required option "output"' );
 
-    if( typeof this.tree === 'object' && ! this.url_prefix )
+    if(
+        (
+            typeof this.trees === 'object' && ! Array.isArray( this.trees ) ||
+            Array.isArray( this.trees ) && this.trees.filter(function( t ){ return typeof t === 'object' }).length
+        )
+        && ! this.url_prefix
+    )
         throw new Error( 'Missed required "url_prefix" option' );
 
-    if( this.url_prefix )
-        this.image_path = this.url_prefix;
-    else if( typeof this.tree === 'string' )
-        this.image_path = this.image_root ? this.tree.replace( new RegExp( '^' + this.image_root ), '' ) : this.tree;
-    this.image_path += this.image_path.slice( -1 ) === '/' ? '' : '/';
-
+    this.trees = Array.isArray( this.trees ) ? this.trees : [ this.trees ];
     this.input = Array.isArray( this.input ) ? this.input : [ this.input ];
     this.inline = Array.isArray( this.inline ) ? this.inline : [ this.inline ];
 }
 
 
 ImageUtil.prototype._scss = function( dir ){
-    dir += dir.slice( -1 ) === path.sep ? '' : path.sep;
-    this.input = this.input.map(function( glob ){ return dir + glob });
-    this.inline = this.inline.map(function( glob ){ return dir + glob });
+    dir += dir.slice( -1 ) === '/' ? '' : '/'
+    var input = this.input.map(function( glob ){ return dir + glob });
+    var inline = this.inline.map(function( glob ){ return dir + glob });
     var self = this,
-        input_images = glob.sync( this.input ),
-        inline_images = glob.sync( this.inline );
+        input_images = glob.sync( input ),
+        inline_images = glob.sync( inline );
 
     return input_images.concat( inline_images.filter(function( file_path ){
         return input_images.indexOf( file_path ) < 0;
@@ -81,9 +82,16 @@ ImageUtil.prototype._scss = function( dir ){
         // image-size library may through a TypeError for SVG images without width and height
         try{ var size = imageSize( file_path ); }catch( err ){}
 
+        var image_url = self.url_prefix;
+        if( ! self.url_prefix )
+            image_url = self.image_root ? dir.replace( new RegExp( '^' + self.image_root ), '' ) : dir;
+        else
+            image_url += self.url_prefix.slice( -1 ) === '/' ? '' : '/';
+        image_url = ( image_url + file_name ).replace( /\\/g, '/' );
+
         output += '\n';
-        output += '$' + var_name + '_path: \'' + self.image_path + file_name + cache_buster + '\';\n';
-        output += '$' + var_name + '_url: url(\'' + self.image_path + file_name + cache_buster + '\');\n';
+        output += '$' + var_name + '_path: \'' + image_url + cache_buster + '\';\n';
+        output += '$' + var_name + '_url: url(\'' + image_url + cache_buster + '\');\n';
         if( inline_images.indexOf( file_path ) + 1 ){
             var uri = new dataURI( file_path );
             output += '$' + var_name + '_data_url: url(\'' + uri.content +'\');\n';
@@ -100,7 +108,8 @@ ImageUtil.prototype._scss = function( dir ){
 
 ImageUtil.prototype.updateCache = function( src, dst ){
     var scss_output = '// File created with broccoli-sass-image-vars at ' + new Date() + '\n';
-    scss_output += this._scss( src[ 0 ] );
+    for( var i in src )
+        scss_output += this._scss( src[ i ] );
     mkdirp.sync( path.join( dst, path.dirname( this.output ) ) );
     fs.writeFileSync( path.join( dst, this.output ), scss_output, 'utf8' );
 };
