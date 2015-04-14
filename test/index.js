@@ -7,6 +7,7 @@ var imageVars = require( '..' );
 
 imageVars.output = '_result.scss';
 chai.should();
+var expect = chai.expect;
 
 describe( 'broccoli-sass-image-vars', function(){
     var fixturesDir = path.normalize( path.basename( __dirname ) + '/fixtures/' );
@@ -81,5 +82,12 @@ describe( 'broccoli-sass-image-vars', function(){
         return check( tree, '_broccoli_tree_and_url_prefix.scss', {
             url_prefix: '/prefix'
         });
+    });
+    it( 'should throw an error if the Broccoli tree is used and the "url_prefix" option isn\'t specified', function(){
+        var tree = pick( fixturesDir + 'single', {
+            srcDir: '.',
+            destDir: '.'
+        });
+        return expect(function(){ check( tree, '_broccoli_tree_and_url_prefix.scss' ) }).to.throw( /url_prefix/ );
     });
 });
