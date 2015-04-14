@@ -93,6 +93,16 @@ describe( 'broccoli-sass-image-vars', function(){
             url_prefix: '/prefix'
         });
     });
+    it( 'should create the correct scss file with a Broccoli tree (which moves images) and the "url_prefix" option', function(){
+        var tree = pick( fixturesDir + 'single', {
+            srcDir: '.',
+            destDir: 'nice_place'
+        });
+        return check( tree, '_broccoli_moving_tree_and_url_prefix.scss', {
+            input: 'nice_place/*.*',
+            url_prefix: '/prefix'
+        });
+    });
     it( 'should throw an error if the Broccoli tree is used and the "url_prefix" option isn\'t specified', function(){
         var tree = pick( fixturesDir + 'single', {
             srcDir: '.',

@@ -1,0 +1,25 @@
+// Result for the fixtures/single directory using the Broccoli tree, which moves files to "nice_place" dir, and "nice_place/*.*", "/prefix" values for "input" and "url_prefix" options
+
+$nice_place_1_path: '/prefix/nice_place/1.png';
+$nice_place_1_url: url('/prefix/nice_place/1.png');
+$nice_place_1_width: 20px;
+$nice_place_1_height: 20px;
+$nice_place_1_padding: 100%;
+
+$nice_place_simple_path: '/prefix/nice_place/simple.svg';
+$nice_place_simple_url: url('/prefix/nice_place/simple.svg');
+$nice_place_simple_width: 40px;
+$nice_place_simple_height: 40px;
+$nice_place_simple_padding: 100%;
+
+$nice_place_test\ 1_path: '/prefix/nice_place/test 1.gif';
+$nice_place_test\ 1_url: url('/prefix/nice_place/test 1.gif');
+$nice_place_test\ 1_width: 20px;
+$nice_place_test\ 1_height: 40px;
+$nice_place_test\ 1_padding: 200%;
+
+$nice_place_test\.test_path: '/prefix/nice_place/test.test.jpg';
+$nice_place_test\.test_url: url('/prefix/nice_place/test.test.jpg');
+$nice_place_test\.test_width: 40px;
+$nice_place_test\.test_height: 20px;
+$nice_place_test\.test_padding: 50%;
