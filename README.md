@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.org/filippovdaniil/broccoli-sass-image-vars.svg?branch=master)](https://travis-ci.org/filippovdaniil/broccoli-sass-image-vars)
 [![Dependencies Status](https://david-dm.org/filippovdaniil/broccoli-sass-image-vars.svg)](https://david-dm.org/filippovdaniil/broccoli-sass-image-vars)
+[![Coverage Status](https://coveralls.io/repos/filippovdaniil/broccoli-sass-image-vars/badge.svg)](https://coveralls.io/r/filippovdaniil/broccoli-sass-image-vars)
 
 This is a simple [broccoli](https://github.com/broccolijs/broccoli) plugin for generating Sass variables for your images.
 
