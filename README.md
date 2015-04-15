@@ -13,7 +13,7 @@ npm install --save-dev broccoli-sass-image-vars
 
 ## Usage examples
 
-Plugin's first argument may be either a string (path to the directory with images) or a single broccoli tree, or even an array of paths and trees.
+Plugin's first argument may be either a string (path to the directory with images) or a single broccoli tree, or even an array of paths and broccoli trees.
 
 In the first case, you don't even need to specify the `url_prefix` option — the passed string will be the prefix of image URLs (you can also specify the `image_root` option to modify this prefix):
 
@@ -111,7 +111,7 @@ var imagesTree = imageVars( 'webpub/images' );
 ## Documentation
 
 ### `imageVars( inputTree, options )`
-### `imageVars( [ inputTree1, inputTree2, ... ], options )`
+### `imageVars( [ tree1, tree2, ... ], options )`
 
 ---
 
@@ -163,10 +163,10 @@ Default value: `false`
 ## Tests
 
 ```bash
-npm i
+npm install
 ```
 ```bash
-npm t
+npm test
 ```
 
 ## License
