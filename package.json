@@ -10,7 +10,7 @@
     "url": "https://github.com/filippovdaniil/broccoli-sass-image-vars"
   },
   "scripts": {
-    "test": "node_modules/.bin/mocha"
+    "test": "node_modules/.bin/istanbul cover node_modules/mocha/bin/_mocha --report lcovonly"
   },
   "dependencies": {
     "mkdirp": "~0.5.0",
@@ -23,6 +23,7 @@
     "broccoli": "^0.15.3",
     "broccoli-static-compiler": "^0.2.1",
     "chai": "^2.2.0",
+    "istanbul": "^0.3.13",
     "mocha": "^2.2.4"
   }
 }
