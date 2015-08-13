@@ -71,7 +71,7 @@ ImageUtil.prototype._scss = function( dir ){
         var file_name = path.relative( dir, file_path );
         var relative_var_name = ( path.dirname( file_name ) + '_' )
                                     .replace( /^\._/, '' )
-                                    .replace( new RegExp( path.sep, 'g' ), '_' );
+                                    .replace( new RegExp( '\\' + path.sep, 'g' ), '_' );
         var var_name = relative_var_name + path.basename( file_name, path.extname( file_name ) );
         var cache_buster = self.cache_buster ? '?' + Math.floor( fs.statSync( file_path ).ctime.getTime() / 1000 ) : '';
 
